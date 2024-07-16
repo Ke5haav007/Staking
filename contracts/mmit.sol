@@ -13,11 +13,11 @@ contract MyToken is ERC20, Ownable, ERC20Permit {
         ERC20Permit("MyToken")
     {}
 
-    function mint(address to, uint256 amount) public onlyOwner {
+    function mint(address to, uint256 amount) public {
         _mint(to, amount);
     }
 
-        function decimals() public view override returns (uint8) {
+        function decimals() public pure override returns (uint8) {
         return 18;
     }
 }

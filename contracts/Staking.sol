@@ -7,7 +7,6 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./interfaces/Immit.sol";
-import "hardhat/console.sol";
 
 contract Staking is 
     Initializable,
@@ -29,6 +28,7 @@ contract Staking is
         uint stakedAmount;
         uint stakedTimeStamp;
         uint lastclaimTimeStamp;
+        uint claimedAmount;
         uint endTime;
         address depositor;
         Package stakingPackage;
@@ -44,6 +44,7 @@ contract Staking is
     mapping(uint => StakedDetails) public stakedetails;
     mapping(address => address) public referrer; 
     mapping(address => uint) public referrerClaimAmount;
+    mapping(address =>uint[]) public stakingIDs;
 
 /// @custom:oz-upgrades-unsafe-allow constructor
    constructor() {
@@ -95,24 +96,20 @@ contract Staking is
     }
 
     function stake(uint _amount , Package _stakingPackage) public nonReentrant{
-        if(_stakingPackage == Package.package1){
-            require(_amount >= 100 * 10 ** mmitToken.decimals(),"Package Min Amount");
-        }
-        if(_stakingPackage == Package.package2){
-            require(_amount >= 500 * 10 ** mmitToken.decimals(),"Package Min Amount");
-        }
-        if(_stakingPackage == Package.package3){
-            require(_amount >= 1000 * 10 ** mmitToken.decimals(),"Package Min Amount");
-        }
       StakedDetails storage details = stakedetails[stakeID];
-      mmitToken.safeTransferFrom(msg.sender, address(this), _amount);
       details.depositor = msg.sender;
       details.stakedAmount = _amount;
       details.stakingPackage = _stakingPackage;
       details.stakedTimeStamp = block.timestamp;
-      details.endTime = block.timestamp + 360 days;
+      details.endTime = details.stakedTimeStamp + 361 days;
+      stakingIDs[msg.sender].push(stakeID);
       emit Staked(msg.sender, _amount, stakeID);
+      mmitToken.safeTransferFrom(msg.sender, address(this), _amount);
       stakeID++;
+    }
+
+    function getStakingIDs(address _user) public view returns (uint[] memory) {
+        return stakingIDs[_user];
     }
 
 
@@ -136,11 +133,10 @@ contract Staking is
             noOfDays = (block.timestamp - details.lastclaimTimeStamp)/ 1 days;
             details.lastclaimTimeStamp = block.timestamp;
         }
-        console.log("NoOfDays", noOfDays);
         uint claimableamount = calculateRewards(details.stakedAmount, details.stakingPackage, noOfDays);
         assert(claimableamount <= mmitToken.balanceOf(address(this)));
         mmitToken.safeTransfer(details.depositor,claimableamount);
-
+        details.claimedAmount += claimableamount;
     }
 
     function referralClaim() external nonReentrant{
@@ -151,6 +147,17 @@ contract Staking is
         }
     }
 
+    function changeAPR(Package _stakingPackage, uint _apr) external onlyOwner{
+        if(_stakingPackage == Package.package1){
+            P1APR = _apr;
+        }
+        if(_stakingPackage == Package.package2){
+            P2APR = _apr;
+        }
+        if(_stakingPackage == Package.package3){
+            P3APR = _apr;
+        }
+    }
 
     function calculateRewards(uint _amount, Package _stakingPackage, uint _noOfDays) internal view returns(uint rewards){
 
@@ -164,8 +171,9 @@ contract Staking is
         if(_stakingPackage == Package.package3){
             return (_noOfDays * (_amount + (_amount * P3APR)/10000))/360;      
         }
-
     }
+
+    
 
      
     

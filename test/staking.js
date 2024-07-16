@@ -198,6 +198,163 @@ describe("Staking", function () {
       console.log("Blance Of User 2 After 360 days",await mmitToken.balanceOf(user2.address));
 
     })
+
+
+    it("Claim Amount Scenario 2",async()=>{
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),0,user1.address);
+
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),0,user1.address);
+
+      console.log("Balance Of Staking Contract",await mmitToken.balanceOf(staking.target));
+      await staking.connect(user1).referralClaim();
+       
+      console.log("User 1 Balance", await mmitToken.balanceOf(user1.address))
+      console.log("Balance Of Staking Contract After refferal Widhdrawal",await mmitToken.balanceOf(staking.target));
+
+      expect(staking.connect(user1).claimAmount(0)).to.be.reverted
+      expect(staking.connect(user2).claimAmount(0)).to.be.reverted
+
+      await time.increase(8640000);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 100 days",await mmitToken.balanceOf(user2.address));
+      await time.increase(31104000);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 360",await mmitToken.balanceOf(user2.address));
+
+    })
+
+
+    it("Claim Amount Scenario 3",async()=>{
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),1,user1.address);
+
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),1,user1.address);
+
+      console.log("Balance Of Staking Contract",await mmitToken.balanceOf(staking.target));
+      await staking.connect(user1).referralClaim();
+       
+      console.log("User 1 Balance", await mmitToken.balanceOf(user1.address))
+      console.log("Balance Of Staking Contract After refferal Widhdrawal",await mmitToken.balanceOf(staking.target));
+
+      expect(staking.connect(user1).claimAmount(0)).to.be.reverted
+      expect(staking.connect(user2).claimAmount(0)).to.be.reverted
+
+      await time.increase(8640000);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 100 days",await mmitToken.balanceOf(user2.address));
+      await time.increase(31104000);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 360",await mmitToken.balanceOf(user2.address));
+
+    })
+
+
+    it("Claim Amount Scenario 4",async()=>{
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),2,user1.address);
+
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),2,user1.address);
+
+      console.log("Balance Of Staking Contract",await mmitToken.balanceOf(staking.target));
+      await staking.connect(user1).referralClaim();
+       
+      console.log("User 1 Balance", await mmitToken.balanceOf(user1.address))
+      console.log("Balance Of Staking Contract After refferal Widhdrawal",await mmitToken.balanceOf(staking.target));
+
+      expect(staking.connect(user1).claimAmount(0)).to.be.reverted
+      expect(staking.connect(user2).claimAmount(0)).to.be.reverted
+
+      await time.increase(8640000);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 100 days",await mmitToken.balanceOf(user2.address));
+      await time.increase(86400);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 101",await mmitToken.balanceOf(user2.address));
+
+      await time.increase(86400);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 102",await mmitToken.balanceOf(user2.address));
+
+      await time.increase(8640000);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 202 days",await mmitToken.balanceOf(user2.address));
+
+      await time.increase(8640000);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 302 days",await mmitToken.balanceOf(user2.address));
+
+      await time.increase(8640000+8640000);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 360 days",await mmitToken.balanceOf(user2.address));
+
+    })
+
+    it("Claim Amount Scenario 5",async()=>{
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),2,user1.address);
+
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),2,user1.address);
+
+      console.log("Balance Of Staking Contract",await mmitToken.balanceOf(staking.target));
+      await staking.connect(user1).referralClaim();
+       
+      console.log("User 1 Balance", await mmitToken.balanceOf(user1.address))
+      console.log("Balance Of Staking Contract After refferal Widhdrawal",await mmitToken.balanceOf(staking.target));
+
+      expect(staking.connect(user1).claimAmount(0)).to.be.reverted
+      expect(staking.connect(user2).claimAmount(0)).to.be.reverted
+
+      await time.increase(31536000 +31536000);
+      await staking.connect(user2).claimAmount(0);
+      console.log("Blance Of User 2 After 360 days",await mmitToken.balanceOf(user2.address));
+ 
+
+
+    })
+
+    it("Change APR", async()=>{
+      await staking.changeAPR(0,3000);
+      await staking.changeAPR(1,4000);
+      await staking.changeAPR(2,5000);  
+   })
+
+   it("Check Staking ID's of Address", async()=>{
+    await mmitToken.mint(user1.address,ethers.parseEther("100"));
+    await mmitToken.connect(user1).approve(staking.target,ethers.parseEther("100"));
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
+
+    const result =await staking.getStakingIDs(user1.address);
+    console.log(result);
+
+    const stakingDetails = await staking.stakedetails(0);
+    console.log("Staking Details",stakingDetails);
+
+   })
+
+
     it("Reverts pr-1", async()=>{
 
       await mmitToken.mint(user1.address,ethers.parseEther("100"));
