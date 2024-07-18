@@ -17,19 +17,19 @@ contract Staking is
 
     using SafeERC20 for Immit;
     Immit public mmitToken; 
-    uint public stakeID; 
-    uint public  P1APR;
-    uint public  P2APR;
-    uint public  P3APR;
+    uint256 public stakeID; 
+    uint256 public  P1APR;
+    uint256 public  P2APR;
+    uint256 public  P3APR;
 
     event Staked(address indexed user, uint256 amount, uint256 indexed stakeID);
 
     struct StakedDetails{
-        uint stakedAmount;
-        uint stakedTimeStamp;
-        uint lastclaimTimeStamp;
-        uint claimedAmount;
-        uint endTime;
+        uint256 stakedAmount;
+        uint256 stakedTimeStamp;
+        uint256 lastclaimTimeStamp;
+        uint256 claimedAmount;
+        uint256 endTime;
         address depositor;
         Package stakingPackage;
     }
@@ -41,10 +41,10 @@ contract Staking is
         package3
     }
 
-    mapping(uint => StakedDetails) public stakedetails;
+    mapping(uint256 => StakedDetails) public stakedetails;
     mapping(address => address) public referrer; 
-    mapping(address => uint) public referrerClaimAmount;
-    mapping(address =>uint[]) public stakingIDs;
+    mapping(address => uint256) public referrerClaimAmount;
+    mapping(address =>uint256[]) public stakingIDs;
 
 /// @custom:oz-upgrades-unsafe-allow constructor
    constructor() {
@@ -113,7 +113,7 @@ contract Staking is
     }
 
 
-    function claimAmount(uint _stakeID) external nonReentrant{
+    function claimAmount(uint256 _stakeID) external nonReentrant{
         StakedDetails storage details = stakedetails[_stakeID];
         require(details.depositor == msg.sender,"Not the Staker");
         require(block.timestamp >= details.stakedTimeStamp + 100 days, "Cannot claim yet");
@@ -133,14 +133,14 @@ contract Staking is
             noOfDays = (block.timestamp - details.lastclaimTimeStamp)/ 1 days;
             details.lastclaimTimeStamp = block.timestamp;
         }
-        uint claimableamount = calculateRewards(details.stakedAmount, details.stakingPackage, noOfDays);
+        uint256 claimableamount = calculateRewards(details.stakedAmount, details.stakingPackage, noOfDays);
         assert(claimableamount <= mmitToken.balanceOf(address(this)));
         mmitToken.safeTransfer(details.depositor,claimableamount);
         details.claimedAmount += claimableamount;
     }
 
     function referralClaim() external nonReentrant{
-        uint claimableAmount = referrerClaimAmount[msg.sender];
+        uint256 claimableAmount = referrerClaimAmount[msg.sender];
         if(claimableAmount>0 && claimableAmount<= mmitToken.balanceOf(address(this))){
             referrerClaimAmount[msg.sender] = 0;
             mmitToken.safeTransfer(msg.sender, claimableAmount);
@@ -159,7 +159,7 @@ contract Staking is
         }
     }
 
-    function calculateRewards(uint _amount, Package _stakingPackage, uint _noOfDays) internal view returns(uint rewards){
+    function calculateRewards(uint256 _amount, Package _stakingPackage, uint256 _noOfDays) internal view returns(uint256 rewards){
 
         if(_stakingPackage == Package.package1){
             return (_noOfDays * (_amount + (_amount * P1APR)/10000))/360;
