@@ -1,0 +1,274 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0xF0B4Ba6202324D97358aF4970d591FFF65a576cF",
+      "txHash": "0x7a83fc622f287b45912c4afe5d516772e8decb90ccd8ddee3060696a797a2972",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "ae7ac4598110b82ee0b4b0ccff537d571e892eb26f0114e479b4136dd818a748": {
+      "address": "0xAD5E25dB1215509a02770FF39d18F9BE373A2794",
+      "txHash": "0x9ff07b98bdeefc6d425aa4e55e8a64bfc8569839e32ac0af4cd5345fe768a5fd",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "mmitToken",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_contract(Immit)6030",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:19"
+          },
+          {
+            "label": "stakeID",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:20"
+          },
+          {
+            "label": "P1APR",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:21"
+          },
+          {
+            "label": "P2APR",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:22"
+          },
+          {
+            "label": "P3APR",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:23"
+          },
+          {
+            "label": "stakedetails",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_uint256,t_struct(StakedDetails)5333_storage)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:44"
+          },
+          {
+            "label": "referrer",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_address)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:45"
+          },
+          {
+            "label": "referrerClaimAmount",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:46"
+          },
+          {
+            "label": "stakingIDs",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:47"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)65_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)14_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)195_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]",
+            "numberOfBytes": "32"
+          },
+          "t_contract(Immit)6030": {
+            "label": "contract Immit",
+            "numberOfBytes": "20"
+          },
+          "t_enum(Package)5337": {
+            "label": "enum Staking.Package",
+            "members": [
+              "package1",
+              "package2",
+              "package3"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(address => uint256[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(StakedDetails)5333_storage)": {
+            "label": "mapping(uint256 => struct Staking.StakedDetails)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(StakedDetails)5333_storage": {
+            "label": "struct Staking.StakedDetails",
+            "members": [
+              {
+                "label": "stakedAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "stakedTimeStamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "lastclaimTimeStamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "claimedAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "endTime",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "depositor",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "stakingPackage",
+                "type": "t_enum(Package)5337",
+                "offset": 20,
+                "slot": "5"
+              }
+            ],
+            "numberOfBytes": "192"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol:40",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

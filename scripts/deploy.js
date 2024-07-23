@@ -22,7 +22,7 @@ async function main(){
       //    const stakingFacory = await ethers.getContractFactory("Staking");
       //    const staking = await upgrades.deployProxy(
       //      stakingFacory,
-      //      [mmitTokenContractAddress, "0x25E103D477025F9A8270328d84397B2cEE32D0BF"],
+      //      ["0xcF0d61Cbd5Dc16cb7dCf36D80630e633D1f9A0Ee", "0x25E103D477025F9A8270328d84397B2cEE32D0BF"],
       //      { kind: "uups" }
       //  );
       //  const stakingContractAddress = await staking.getAddress();
@@ -36,7 +36,7 @@ async function main(){
       //   console.log("implementationContractAddressStaking",implementationContractAddressStaking);
 
         await hre.run("verify:verify", {
-         address: "0x913b466a215ffd82c4412f893f233ceea85d96f0",
+         address: "0xdd03978e19b8ef0ae034e169360379508fe519aa",
          constructorArguments: [],
      });
 
