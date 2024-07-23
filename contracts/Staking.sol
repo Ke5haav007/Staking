@@ -8,6 +8,7 @@ import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./interfaces/Immit.sol";
 
+
 contract Staking is 
     Initializable,
     UUPSUpgradeable,
@@ -26,9 +27,9 @@ contract Staking is
 
     struct StakedDetails{
         uint256 stakedAmount;
+        uint256 claimedAmount;
         uint256 stakedTimeStamp;
         uint256 lastclaimTimeStamp;
-        uint256 claimedAmount;
         uint256 endTime;
         address depositor;
         Package stakingPackage;
@@ -45,6 +46,7 @@ contract Staking is
     mapping(address => address) public referrer; 
     mapping(address => uint256) public referrerClaimAmount;
     mapping(address =>uint256[]) public stakingIDs;
+    mapping(address => mapping(Package => uint256[])) public userStakingIds;
 
 /// @custom:oz-upgrades-unsafe-allow constructor
    constructor() {
@@ -95,14 +97,15 @@ contract Staking is
       stake(_amount, _stakingPackage);
     }
 
-    function stake(uint _amount , Package _stakingPackage) public nonReentrant{
+    function stake(uint _amount , Package _stakingPackage) internal nonReentrant{
       StakedDetails storage details = stakedetails[stakeID];
       details.depositor = msg.sender;
       details.stakedAmount = _amount;
       details.stakingPackage = _stakingPackage;
       details.stakedTimeStamp = block.timestamp;
-      details.endTime = details.stakedTimeStamp + 361 days;
+      details.endTime = details.stakedTimeStamp + 360 days;
       stakingIDs[msg.sender].push(stakeID);
+      userStakingIds[msg.sender][_stakingPackage].push(stakeID);
       emit Staked(msg.sender, _amount, stakeID);
       mmitToken.safeTransferFrom(msg.sender, address(this), _amount);
       stakeID++;
@@ -112,31 +115,54 @@ contract Staking is
         return stakingIDs[_user];
     }
 
+    function getpackageStakingIds(address user, Package packageType) public view returns (uint256[] memory) {
+        return userStakingIds[user][packageType];
+    }
+
 
     function claimAmount(uint256 _stakeID) external nonReentrant{
         StakedDetails storage details = stakedetails[_stakeID];
         require(details.depositor == msg.sender,"Not the Staker");
-        require(block.timestamp >= details.stakedTimeStamp + 100 days, "Cannot claim yet");
-        uint noOfDays;
+        require(block.timestamp > details.stakedTimeStamp + 100 days, "Cannot claim yet");
+        uint epocDiff;
         if(details.lastclaimTimeStamp == details.endTime){
             revert("All amount Claimed");
         }else if(block.timestamp>= details.endTime && details.lastclaimTimeStamp>0){
-            noOfDays = (details.endTime - details.lastclaimTimeStamp)/1 days;
+            epocDiff = details.endTime - details.lastclaimTimeStamp;
             details.lastclaimTimeStamp = details.endTime;
         }else if(block.timestamp>= details.endTime && details.lastclaimTimeStamp ==0){
-           noOfDays = 360;
+           epocDiff = 22464000;
             details.lastclaimTimeStamp = details.endTime;
-        }else if(details.lastclaimTimeStamp ==0){
-            noOfDays = (block.timestamp - details.stakedTimeStamp)/ 1 days;
+        }else if(details.lastclaimTimeStamp ==0 && block.timestamp < details.endTime){
+            epocDiff = block.timestamp - (details.stakedTimeStamp+100 days);
             details.lastclaimTimeStamp = block.timestamp;
         }else{
-            noOfDays = (block.timestamp - details.lastclaimTimeStamp)/ 1 days;
+            epocDiff = block.timestamp - details.lastclaimTimeStamp;
             details.lastclaimTimeStamp = block.timestamp;
         }
-        uint256 claimableamount = calculateRewards(details.stakedAmount, details.stakingPackage, noOfDays);
+        uint256 claimableamount = calculateRewards(details.stakedAmount, details.stakingPackage, epocDiff);
         assert(claimableamount <= mmitToken.balanceOf(address(this)));
         mmitToken.safeTransfer(details.depositor,claimableamount);
         details.claimedAmount += claimableamount;
+    }
+
+    function getAccumulatedAmount(uint256 _stakeID) public view returns(uint){
+        StakedDetails memory details = stakedetails[_stakeID];
+        uint epocDiff;
+        if(block.timestamp < details.stakedTimeStamp + 100 days){
+            return 0;
+        }else if(block.timestamp> details.endTime && details.lastclaimTimeStamp>0){
+         epocDiff = details.endTime - details.lastclaimTimeStamp;
+        }else if(block.timestamp>= details.endTime && details.lastclaimTimeStamp==0){
+         epocDiff = 22464000;
+        }else if(details.lastclaimTimeStamp ==0 && block.timestamp < details.endTime){
+            epocDiff = block.timestamp - (details.stakedTimeStamp+100 days);
+        }else{
+           epocDiff = block.timestamp - details.lastclaimTimeStamp; 
+        }
+
+        return calculateRewards(details.stakedAmount, details.stakingPackage, epocDiff);
+
     }
 
     function referralClaim() external nonReentrant{
@@ -159,17 +185,23 @@ contract Staking is
         }
     }
 
-    function calculateRewards(uint256 _amount, Package _stakingPackage, uint256 _noOfDays) internal view returns(uint256 rewards){
+    function calculateRewards(uint256 _amount, Package _stakingPackage, uint256 _epocDifference) internal view returns(uint256 rewards){
 
         if(_stakingPackage == Package.package1){
-            return (_noOfDays * (_amount + (_amount * P1APR)/10000))/360;
+              uint interestAmount = _amount * P1APR /10000; 
+              uint totalAmount = interestAmount+_amount;
+              return (_epocDifference*totalAmount)/22464000;
         }
         if(_stakingPackage == Package.package2){
-            return (_noOfDays * (_amount + (_amount * P2APR)/10000))/360;      
+            uint interestAmount = _amount * P2APR /10000; 
+              uint totalAmount = interestAmount+_amount;
+              return (_epocDifference*totalAmount)/22464000;     
         }
 
         if(_stakingPackage == Package.package3){
-            return (_noOfDays * (_amount + (_amount * P3APR)/10000))/360;      
+            uint interestAmount = _amount * P3APR /10000; 
+              uint totalAmount = interestAmount+_amount;
+              return (_epocDifference*totalAmount)/22464000;     
         }
     }
 

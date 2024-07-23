@@ -20,7 +20,7 @@ module.exports = {
 
   networks: {
     bscTestNet: {
-      url: `https://bsc-prebsc-dataseed.bnbchain.org`,
+      url: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
       accounts: [process.env.PVT_KEY]
     }
   },

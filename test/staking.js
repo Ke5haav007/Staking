@@ -329,7 +329,43 @@ describe("Staking", function () {
       await staking.connect(user2).claimAmount(0);
       console.log("Blance Of User 2 After 360 days",await mmitToken.balanceOf(user2.address));
  
+    })
 
+    it("getAccumulatedAmount", async()=>{
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),0,user1.address);
+
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),0,user1.address);
+
+      await time.increase(8640000); // 100 days
+      const amount = await staking.getAccumulatedAmount(0);
+      console.log(amount);
+
+      await time.increase(8640000); // 100 days
+      const amount2 = await staking.getAccumulatedAmount(0);
+      console.log(amount2);
+
+      await staking.connect(user2).claimAmount(0);
+      
+      await time.increase(8640000);
+      const amount3 = await staking.getAccumulatedAmount(0);
+      console.log(amount3);
+
+      await staking.connect(user2).claimAmount(0);
+
+      await time.increase(8640000);
+      const amount4 = await staking.getAccumulatedAmount(0);
+      console.log(amount4);
+
+      await time.increase(8640000);
+
+      const amount5 = await staking.getAccumulatedAmount(0);
+      console.log(amount5);
 
     })
 
@@ -352,6 +388,28 @@ describe("Staking", function () {
     const stakingDetails = await staking.stakedetails(0);
     console.log("Staking Details",stakingDetails);
 
+   })
+
+   it("userStakingIds", async()=>{
+    await mmitToken.mint(user1.address,ethers.parseEther("100"));
+    await mmitToken.connect(user1).approve(staking.target,ethers.parseEther("100"));
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),1,user2.address);
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),2,user2.address);
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
+    await staking.connect(user1).referralStake(ethers.parseEther("10"),2,user2.address);
+
+
+    const result = await staking.getpackageStakingIds(user1.address,0);
+    console.log(result);
+
+    const result2 = await staking.getpackageStakingIds(user1.address,1);
+    console.log(result2);
+
+    const result3 = await staking.getpackageStakingIds(user1.address,2);
+    console.log(result3);
    })
 
 

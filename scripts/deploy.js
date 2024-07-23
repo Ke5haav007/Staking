@@ -36,7 +36,7 @@ async function main(){
       //   console.log("implementationContractAddressStaking",implementationContractAddressStaking);
 
         await hre.run("verify:verify", {
-         address: "0xdd03978e19b8ef0ae034e169360379508fe519aa",
+         address: "0xe232a9885f1ae56aec3ecfa64af8cf343f9b23b3",
          constructorArguments: [],
      });
 
