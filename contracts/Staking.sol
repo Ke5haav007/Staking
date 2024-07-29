@@ -46,7 +46,7 @@ contract Staking is
     mapping(address => address) public referrer; 
     mapping(address => uint256) public referrerClaimAmount;
     mapping(address =>uint256[]) public stakingIDs;
-    mapping(address => mapping(Package => uint256[])) public userStakingIds;
+    mapping(address => mapping(Package => uint256[])) public packageStakingIds;
 
 /// @custom:oz-upgrades-unsafe-allow constructor
    constructor() {
@@ -105,7 +105,7 @@ contract Staking is
       details.stakedTimeStamp = block.timestamp;
       details.endTime = details.stakedTimeStamp + 360 days;
       stakingIDs[msg.sender].push(stakeID);
-      userStakingIds[msg.sender][_stakingPackage].push(stakeID);
+      packageStakingIds[msg.sender][_stakingPackage].push(stakeID);
       emit Staked(msg.sender, _amount, stakeID);
       mmitToken.safeTransferFrom(msg.sender, address(this), _amount);
       stakeID++;
@@ -116,7 +116,7 @@ contract Staking is
     }
 
     function getpackageStakingIds(address user, Package packageType) public view returns (uint256[] memory) {
-        return userStakingIds[user][packageType];
+        return packageStakingIds[user][packageType];
     }
 
 

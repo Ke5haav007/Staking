@@ -392,13 +392,17 @@ describe("Staking", function () {
 
    it("userStakingIds", async()=>{
     await mmitToken.mint(user1.address,ethers.parseEther("100"));
+    await mmitToken.mint(user2.address,ethers.parseEther("100"));
     await mmitToken.connect(user1).approve(staking.target,ethers.parseEther("100"));
+    await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
     await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
     await staking.connect(user1).referralStake(ethers.parseEther("10"),1,user2.address);
+    await staking.connect(user2).referralStake(ethers.parseEther("10"),2,user3.address);
     await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
     await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
     await staking.connect(user1).referralStake(ethers.parseEther("10"),2,user2.address);
     await staking.connect(user1).referralStake(ethers.parseEther("10"),0,user2.address);
+    await staking.connect(user2).referralStake(ethers.parseEther("10"),2,user3.address);
     await staking.connect(user1).referralStake(ethers.parseEther("10"),2,user2.address);
 
 
@@ -410,6 +414,9 @@ describe("Staking", function () {
 
     const result3 = await staking.getpackageStakingIds(user1.address,2);
     console.log(result3);
+
+    const result4 =await staking.getpackageStakingIds(user2.address,2);
+    console.log(result4);
    })
 
 
