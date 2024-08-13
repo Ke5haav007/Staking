@@ -40,6 +40,16 @@
       "address": "0xE076bbdFbA03b0F9E06b02A5e24eb79568100BBA",
       "txHash": "0x9be396d1967d9428ed914308469d8165aea7416a6a66c8909bd077a1f830e61c",
       "kind": "uups"
+    },
+    {
+      "address": "0x24a732977B17ccCd57cF3B988F4eEbd2B8565b99",
+      "txHash": "0xe1e2dce4d87ac0108b41088ef3c0b43ceb94f2a31bd867afe35e1f6a585fc079",
+      "kind": "uups"
+    },
+    {
+      "address": "0xAceD5F8540692bE0929fd6e43b25eB0377829b81",
+      "txHash": "0x5a0cb1000d6d5f3d3dce202a2488233c969f0913da42dade30d124bf84a0b511",
+      "kind": "uups"
     }
   ],
   "impls": {
@@ -1298,6 +1308,636 @@
               {
                 "label": "stakingPackage",
                 "type": "t_enum(Package)1954",
+                "offset": 20,
+                "slot": "5"
+              }
+            ],
+            "numberOfBytes": "192"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol:40",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    },
+    "de7464c01396f804a1b1c7ee1d4ed6a102346c86660177ba9eaacde2abdf3989": {
+      "address": "0xAB878ffca558dD47134D181497d27B040ad7255C",
+      "txHash": "0x258cb59440a573dac96ab76ae311cef31c41b4a9da8b4585e8c9ff02bd500f5b",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "mmitToken",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_contract(Immit)3076",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:20"
+          },
+          {
+            "label": "stakeID",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:21"
+          },
+          {
+            "label": "P1APR",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:22"
+          },
+          {
+            "label": "P2APR",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:23"
+          },
+          {
+            "label": "P3APR",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:24"
+          },
+          {
+            "label": "stakedetails",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_uint256,t_struct(StakedDetails)1951_storage)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:45"
+          },
+          {
+            "label": "referrer",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_address)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:46"
+          },
+          {
+            "label": "referrerClaimAmount",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:47"
+          },
+          {
+            "label": "referrerClaimedAmount",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:48"
+          },
+          {
+            "label": "stakingIDs",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:49"
+          },
+          {
+            "label": "packageStakingIds",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_mapping(t_enum(Package)1955,t_array(t_uint256)dyn_storage))",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:50"
+          },
+          {
+            "label": "totalreferral",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_array(t_address)dyn_storage))",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:51"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)65_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)14_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)195_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]",
+            "numberOfBytes": "32"
+          },
+          "t_contract(Immit)3076": {
+            "label": "contract Immit",
+            "numberOfBytes": "20"
+          },
+          "t_enum(Package)1955": {
+            "label": "enum Staking.Package",
+            "members": [
+              "package1",
+              "package2",
+              "package3"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(address => uint256[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_enum(Package)1955,t_array(t_uint256)dyn_storage))": {
+            "label": "mapping(address => mapping(enum Staking.Package => uint256[]))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_array(t_address)dyn_storage))": {
+            "label": "mapping(address => mapping(uint256 => address[]))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_enum(Package)1955,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(enum Staking.Package => uint256[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_array(t_address)dyn_storage)": {
+            "label": "mapping(uint256 => address[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(StakedDetails)1951_storage)": {
+            "label": "mapping(uint256 => struct Staking.StakedDetails)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(StakedDetails)1951_storage": {
+            "label": "struct Staking.StakedDetails",
+            "members": [
+              {
+                "label": "stakedAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "claimedAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "stakedTimeStamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "lastclaimTimeStamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "endTime",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "depositor",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "stakingPackage",
+                "type": "t_enum(Package)1955",
+                "offset": 20,
+                "slot": "5"
+              }
+            ],
+            "numberOfBytes": "192"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol:40",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    },
+    "817e06c7bc11e2dd9f76fed15477df7c0b899f58b112a6f67ec3e5aa83567a1c": {
+      "address": "0x13b7589dC8713dEfF35F56D1DBD025eE98282F87",
+      "txHash": "0x6e508fcd9ba853290fc336aa3032db5b034c927499550f8fc558cfaa3b3eab97",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "mmitToken",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_contract(Immit)3091",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:20"
+          },
+          {
+            "label": "stakeID",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:21"
+          },
+          {
+            "label": "P1APR",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:22"
+          },
+          {
+            "label": "P2APR",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:23"
+          },
+          {
+            "label": "P3APR",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:24"
+          },
+          {
+            "label": "stakedetails",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_uint256,t_struct(StakedDetails)1951_storage)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:50"
+          },
+          {
+            "label": "referrer",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_address)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:51"
+          },
+          {
+            "label": "referrerClaimAmount",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:52"
+          },
+          {
+            "label": "referrerClaimedAmount",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:53"
+          },
+          {
+            "label": "stakingIDs",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:54"
+          },
+          {
+            "label": "packageStakingIds",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_mapping(t_enum(Package)1960,t_array(t_uint256)dyn_storage))",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:55"
+          },
+          {
+            "label": "referralAmount",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_array(t_struct(ReferralAmount)1956_storage)dyn_storage))",
+            "contract": "Staking",
+            "src": "contracts/Staking.sol:57"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)65_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)14_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)195_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_struct(ReferralAmount)1956_storage)dyn_storage": {
+            "label": "struct Staking.ReferralAmount[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]",
+            "numberOfBytes": "32"
+          },
+          "t_contract(Immit)3091": {
+            "label": "contract Immit",
+            "numberOfBytes": "20"
+          },
+          "t_enum(Package)1960": {
+            "label": "enum Staking.Package",
+            "members": [
+              "package1",
+              "package2",
+              "package3"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(address => uint256[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_enum(Package)1960,t_array(t_uint256)dyn_storage))": {
+            "label": "mapping(address => mapping(enum Staking.Package => uint256[]))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_array(t_struct(ReferralAmount)1956_storage)dyn_storage))": {
+            "label": "mapping(address => mapping(uint256 => struct Staking.ReferralAmount[]))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_enum(Package)1960,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(enum Staking.Package => uint256[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_array(t_struct(ReferralAmount)1956_storage)dyn_storage)": {
+            "label": "mapping(uint256 => struct Staking.ReferralAmount[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(StakedDetails)1951_storage)": {
+            "label": "mapping(uint256 => struct Staking.StakedDetails)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReferralAmount)1956_storage": {
+            "label": "struct Staking.ReferralAmount",
+            "members": [
+              {
+                "label": "staker",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(StakedDetails)1951_storage": {
+            "label": "struct Staking.StakedDetails",
+            "members": [
+              {
+                "label": "stakedAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "claimedAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "stakedTimeStamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "lastclaimTimeStamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "endTime",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "depositor",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "stakingPackage",
+                "type": "t_enum(Package)1960",
                 "offset": 20,
                 "slot": "5"
               }

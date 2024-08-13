@@ -432,7 +432,60 @@ describe("Staking", function () {
 
     })
 
-    
+    it("gettotalreferral", async()=>{
+
+      await mmitToken.mint(user1.address,ethers.parseEther("100"));
+      await mmitToken.connect(user1).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user1).referralStake(ethers.parseEther("100"),0,"0x0000000000000000000000000000000000000000");
+
+      await mmitToken.mint(user2.address,ethers.parseEther("100"));
+      await mmitToken.connect(user2).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user2).referralStake(ethers.parseEther("100"),0,user1.address);
+
+      await mmitToken.mint(user3.address,ethers.parseEther("100"));
+      await mmitToken.connect(user3).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user3).referralStake(ethers.parseEther("100"),0,user1.address);
+
+      await mmitToken.mint(user4.address,ethers.parseEther("100"));
+      await mmitToken.connect(user4).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user4).referralStake(ethers.parseEther("100"),0,user2.address);
+
+      await mmitToken.mint(user5.address,ethers.parseEther("100"));
+      await mmitToken.connect(user5).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user5).referralStake(ethers.parseEther("100"),0,user2.address);
+
+      await mmitToken.mint(user6.address,ethers.parseEther("100"));
+      await mmitToken.connect(user6).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user6).referralStake(ethers.parseEther("100"),0,user4.address);
+
+      await mmitToken.mint(user7.address,ethers.parseEther("100"));
+      await mmitToken.connect(user7).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user7).referralStake(ethers.parseEther("100"),0,user5.address);
+
+
+      await mmitToken.mint(user8.address,ethers.parseEther("100"));
+      await mmitToken.connect(user8).approve(staking.target,ethers.parseEther("100"));
+      await staking.connect(user8).referralStake(ethers.parseEther("100"),0,user3.address);
+
+      const result1 = await staking.getTotalreferralCount(user1.address);
+      expect(result1).to.be.eq(7);
+
+      console.log("User1 Address", user1.address);
+      console.log("User2 Address", user2.address);
+      console.log("User3 Address", user3.address);
+      console.log("User4 Address", user4.address);
+      console.log("User5 Address", user5.address);
+      console.log("User6 Address", user6.address);
+      console.log("User7 Address", user7.address);
+      console.log("User8 Address", user8.address);
+
+      const refferals = await staking.getTotalLevelreferral(user3.address,1);
+      console.log(refferals);
+
+      const totalRefferals = await staking.getTotalreferral(user2.address);
+      console.log(totalRefferals);
+
+    })
 
    
   

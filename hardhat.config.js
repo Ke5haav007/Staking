@@ -1,5 +1,6 @@
 require("@openzeppelin/hardhat-upgrades");
 require("@nomicfoundation/hardhat-toolbox");
+require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
 
   networks: {
     bscTestNet: {
-      url: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
+      url: `https://bsc-dataseed4.binance.org/`,
       accounts: [process.env.PVT_KEY]
     }
   },

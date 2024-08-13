@@ -35,6 +35,11 @@ contract Staking is
         Package stakingPackage;
     }
 
+    struct ReferralAmount{
+        address staker;
+        uint amount; 
+    }
+
 
     enum Package{
         package1,
@@ -45,11 +50,13 @@ contract Staking is
     mapping(uint256 => StakedDetails) public stakedetails;
     mapping(address => address) public referrer; 
     mapping(address => uint256) public referrerClaimAmount;
+    mapping(address=> uint256) public referrerClaimedAmount;
     mapping(address =>uint256[]) public stakingIDs;
     mapping(address => mapping(Package => uint256[])) public packageStakingIds;
+    mapping(address=> mapping(uint=>ReferralAmount[])) public referralAmount;
 
 /// @custom:oz-upgrades-unsafe-allow constructor
-   constructor() {
+   constructor(){
         _disableInitializers();
     }
 
@@ -83,7 +90,6 @@ contract Staking is
                 referrerClaimAmount[referrer[referrer[_referrer]]] +=(_amount * 2)/100;
                 referrerClaimAmount[referrer[_referrer]] += (_amount *3) /100;
                 referrerClaimAmount[_referrer] += (_amount * 5) /100;
-
             }else{
                 referrerClaimAmount[referrer[_referrer]] += (_amount *3) /100;
                 referrerClaimAmount[_referrer] += (_amount * 5) /100;
@@ -91,7 +97,13 @@ contract Staking is
          }else{
             referrerClaimAmount[_referrer] += (_amount * 5) /100;
          }
-
+            ReferralAmount memory newReferral = ReferralAmount({
+            staker: msg.sender,
+            amount: _amount
+            });
+            referralAmount[referrer[referrer[_referrer]]][3].push(newReferral);
+            referralAmount[referrer[_referrer]][2].push(newReferral);
+            referralAmount[_referrer][1].push(newReferral);
       }
 
       stake(_amount, _stakingPackage);
@@ -118,6 +130,45 @@ contract Staking is
     function getpackageStakingIds(address user, Package packageType) public view returns (uint256[] memory) {
         return packageStakingIds[user][packageType];
     }
+
+
+    function getTotalLevelreferral(address _user, uint _leval) public view returns(ReferralAmount[] memory){
+        require(_user!= address(0));
+        return referralAmount[_user][_leval];
+    }
+
+    function getTotalreferralCount(address _user) public view returns(uint){
+        require(_user!= address(0));
+        return referralAmount[_user][1].length +referralAmount[_user][2].length +referralAmount[_user][3].length ;
+    }
+
+      function getTotalreferral(address _user) public view returns(ReferralAmount[] memory){
+        require(_user!= address(0));
+        ReferralAmount[] memory referrals1 = referralAmount[_user][1];
+        ReferralAmount[] memory referrals2 = referralAmount[_user][2];
+        ReferralAmount[] memory referrals3 = referralAmount[_user][3];
+
+        uint totalLength = referrals1.length + referrals2.length + referrals3.length;
+        ReferralAmount[] memory totalreferrals = new ReferralAmount[](totalLength);
+
+        uint currentIndex = 0;
+        for (uint i = 0; i < referrals1.length; i++) {
+            totalreferrals[currentIndex] = referrals1[i];
+            currentIndex++;
+        }
+        for (uint i = 0; i < referrals2.length; i++) {
+            totalreferrals[currentIndex] = referrals2[i];
+            currentIndex++;
+        }
+        for (uint i = 0; i < referrals3.length; i++) {
+            totalreferrals[currentIndex] = referrals3[i];
+            currentIndex++;
+        }
+
+        return totalreferrals;
+    
+    }
+
 
 
     function claimAmount(uint256 _stakeID) external nonReentrant{
@@ -169,6 +220,7 @@ contract Staking is
         uint256 claimableAmount = referrerClaimAmount[msg.sender];
         if(claimableAmount>0 && claimableAmount<= mmitToken.balanceOf(address(this))){
             referrerClaimAmount[msg.sender] = 0;
+            referrerClaimedAmount[msg.sender] +=claimableAmount;
             mmitToken.safeTransfer(msg.sender, claimableAmount);
         }
     }
@@ -199,15 +251,11 @@ contract Staking is
         }
 
         if(_stakingPackage == Package.package3){
-            uint interestAmount = _amount * P3APR /10000; 
+            uint interestAmount = _amount * P3APR /10000;
               uint totalAmount = interestAmount+_amount;
               return (_epocDifference*totalAmount)/22464000;     
         }
     }
 
-    
-
-     
-    
 
 }

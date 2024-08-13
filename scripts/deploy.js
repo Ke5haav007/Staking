@@ -9,10 +9,10 @@ async function sleep(ms) {
 
 async function main(){
       //    const mmitTokenFactory = await ethers.getContractFactory("MyToken");
-      //    const mmitToken = await mmitTokenFactory.deploy("0x25E103D477025F9A8270328d84397B2cEE32D0BF",{
-      //             gasPrice: ethers.parseUnits('10', 'gwei'), // Set a higher gas price
-      //             gasLimit: 5000000 // Adjust the gas limit as needed
-      //           });
+        //  const mmitToken = await mmitTokenFactory.deploy("0x25E103D477025F9A8270328d84397B2cEE32D0BF",{
+        //           gasPrice: ethers.parseUnits('10', 'gwei'), // Set a higher gas price
+        //           gasLimit: 5000000 // Adjust the gas limit as needed
+        //         });
       //    await mmitToken.waitForDeployment(5);
 
       //    const mmitTokenContractAddress = await mmitToken.getAddress();
@@ -22,7 +22,7 @@ async function main(){
       //    const stakingFacory = await ethers.getContractFactory("Staking");
       //    const staking = await upgrades.deployProxy(
       //      stakingFacory,
-      //      ["0xcF0d61Cbd5Dc16cb7dCf36D80630e633D1f9A0Ee", "0x25E103D477025F9A8270328d84397B2cEE32D0BF"],
+      //      ["0x9767c8E438Aa18f550208e6d1fDf5f43541cC2c8", "0xc8B994AC8Bf53320FFD94DdFC5029FEA0141322d"],
       //      { kind: "uups" }
       //  );
       //  const stakingContractAddress = await staking.getAddress();
@@ -36,17 +36,11 @@ async function main(){
       //   console.log("implementationContractAddressStaking",implementationContractAddressStaking);
 
         await hre.run("verify:verify", {
-         address: "0x4db42314b17a00bfbaaecc701b017742b44c714d",
+         address:"0x8a7d9d8bbd5b9ed096d69788d889963cc3135578",
          constructorArguments: [],
      });
 
-// await hre.run("verify:verify", {
-//   address: mmitToken.target,
-//   constructorArguments: ["0x25E103D477025F9A8270328d84397B2cEE32D0BF"],
-// });
 
-// mmitTokenContractAddress 0xcF0d61Cbd5Dc16cb7dCf36D80630e633D1f9A0Ee
-// Staking Contract deployed to: 0xBCb7EE122974d2C9524dE4f8c3a20b52E4184264
   
 console.log("Verification Done")
 
